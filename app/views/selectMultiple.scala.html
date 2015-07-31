@@ -1,0 +1,15 @@
+@(field: play.api.data.Field, options: Seq[(String,String)], args: (Symbol,Any)*)
+
+@values = @{ field.indexes.map { v => field("[" + v + "]").value } }
+
+@helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
+  <select id="@id" name="@(name)[]" @toHtmlArgs(htmlArgs) multiple="multiple">
+
+    @args.toMap.get('_default).map { defaultValue =>
+      <option class="blank" value="">@defaultValue</option>
+    }
+    @options.map { v =>
+      <option value="@v._1" @{if(values.contains(Some(v._1))) "selected" else ""} >@v._2</option>
+    }
+  </select>
+}

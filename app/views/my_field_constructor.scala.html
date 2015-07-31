@@ -1,0 +1,8 @@
+@(element: helper.FieldElements)
+
+<div class="clearfix @if(element.hasErrors) {error}">
+    <label for="@element.id" class="@element.args.get('_label_class)">@element.label</label>
+    <div class="input">
+    @element.input
+    </div>
+</div>

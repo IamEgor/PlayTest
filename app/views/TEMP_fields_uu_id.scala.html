@@ -1,0 +1,125 @@
+@(fieldForm: Form[DB_Row])
+@import helper._
+@import utils.Helper
+
+@implicitField = @{ FieldConstructor(my_field_constructor.f) }
+
+@main("Create new") {
+    @form(routes.Actions.createFieldHolder()) {
+        <html>
+            <head>
+                <script>
+                    function insertVal() {
+                        var x = document.getElementById("propsList");
+                        var option = document.createElement("option");
+                        option.text = document.getElementById("textValue").value;
+                        option.selected = true;
+                        x.add(option, x[0]);
+                        //@Helper.getInstance().tempString = Helper.getInstance().tempString + option;
+                        document.getElementById("textValue").value = "";
+                    }
+                    function showFunc(show){
+                        if(show == true)
+                            document.getElementById("optionsForm").style.display="block"
+                        else
+                            document.getElementById("optionsForm").style.display="none"
+                    }
+                    function f(sel){
+                        switch (sel.value) {
+                            case "Dates":
+                            case "Single line text":
+                            case "Multi line text":
+                                showFunc(false);
+                                break;
+                            case "Radio button":
+                            case "Check box":
+                            case "Combo box":
+                                showFunc(true);
+                                break;
+                        }
+                    }
+                    function getUrl(){
+                        var x = document.getElementById("typesEnum");
+                        x.selectedIndex.text = "Radio button";
+                    }
+
+                </script>
+
+            </head>
+            <body>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Create/Edit Field</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@inputText(fieldForm("label"), 'size -> 30, '_label -> "Label")</td>
+                            <td>@checkbox(fieldForm("required"))</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @*
+                                <select id="typesEnum" name="typesEnum" onchange="f(this)">
+                                    <option>Single line text</option>
+                                    <option>Multi line text</option>
+                                    <option>Radio button</option>
+                                    <option>Check box</option>
+                                    <option>Combo box</option>
+                                    <option>Dates</option>
+
+                                </select>
+                                *@
+                                @select(field = fieldForm("typesEnum"),
+                                    options = options(Seq("Single line text","Multi line text", "Radio button",
+                                                    "Check box", "Combo box", "Dates")),
+                                    'onchange -> "f(this)")
+                            </td>
+                            <td>@checkbox(fieldForm("isActive"), 'value -> "true")</td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <div id="optionsForm" style="display : none">
+                                    <fieldset>
+                                        <legend>Options menu</legend>
+                                        <table>
+                                            <td>
+                                                <tr>
+                                                    <input type="text" id="textValue">
+                                                </tr>
+                                                <tr>
+                                                    <button type="button" onclick="insertVal()">Insert option</button>
+                                                </tr>
+                                            </td>
+                                            <td>
+                                                    <select
+                                                        id="propsList" size="6" name="propsList" multiple="multiple" style="width: 15em">
+
+                                                    </select>
+                                            </td>
+                                            <td>
+                                                @selectMultiple(
+                                                    fieldForm("groupsId"),
+                                                    options("foo"->"Foo", "bar"->"Bar"),
+                                                    '_label -> "My MultiSelect"
+                                                )
+                                            </td>
+                                        </table>
+                                    </fieldset>
+                                </div>
+                            </td>
+
+                        </tr>
+                        }
+
+</tbody>
+</table>
+    <input type="submit" value="Подтвердить" name="confirm"/>
+    <button type="button" onclick="getUrl()">Hide option</button>
+    <td>@inputText(fieldForm("id"), '_label -> "", 'style -> "display : none")</td>
+</body>
+</html>
+
+}

@@ -1,0 +1,46 @@
+@(fields: List[String], yourForm: Form[DB_Row])
+@import helper._
+
+@main("List of fields") {
+
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    sfwqfwefwwefwefwef
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        @{for(i <- 0 to fields.size - 1) {
+            <tr>
+                <td>
+
+                    if(fields.get(i) == "Single line text") {
+                                <input type="inputType" id="id" name="name"/>
+                    }
+                    else if(fields.get(i) == "Check box") {
+                                <input type="checkbox" name="category"/>
+
+                    }
+                    else if(fields.get(i) == "Multi line text") {
+                                <textarea rows="3" cols="30"></textarea>
+                    }
+                    else if(fields.get(i) == "Radio button") {
+                                    <form action="">
+                                        <input type="radio" name="sex" value="male">Male</input>
+                                            <br></br>
+                                        <input type="radio" name="sex" value="female">Female</input>
+                                    </form>
+                    }
+                    else
+                            <input type="checkbox" id="id" name="name" label="DFFV" checked="true"/>
+
+                </td>
+            </tr>
+        }
+        }
+        </tbody>
+    </table>
+
+}

@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET         /fields                                           controllers.Actions.getAllFields()
+
+
+
+GET         /fields/new                                       controllers.Actions.newField()
+POST        /fields/post                                      controllers.Actions.createFieldHolder()
+
+#GET         /fields/:id                                       controllers.Actions.editField(id : Long)
+GET         /fields/edit/:id                                  controllers.Actions.editField(id : Long)
+GET         /fields/delete/:id                                controllers.Actions.deleteField(id : Long)
+
+#GET        /responses           controllers.Actions.getResponses()
+GET         /javascriptRoutes                                 controllers.Actions.javascriptRoutes
+
+GET         /assets/*file                                     controllers.Assets.at(path="/public", file)
+
+GET         /assets/img/glyphicons-halflings-white.png        controllers.Assets.at(path="/public", file="images/glyphicons-halflings-white.png")
+GET         /assets/img/glyphicons-halflings.png              controllers.Assets.at(path="/public", file="images/glyphicons-halflings.png")

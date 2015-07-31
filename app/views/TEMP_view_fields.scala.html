@@ -1,0 +1,59 @@
+@(fields: List[DB_Row], myForm: Form[DB_Row])
+    @import helper._
+    @main("List of fields") {
+        <input type="submit" id="redir" value="Add field"
+        onclick="window.location='/fields/new';" >
+
+        <table>
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>label</td>
+                    <td>typesEnum</td>
+                    <td>required</td>
+                    <td>isActive</td>
+                    <td>delete</td>
+                </tr>
+            </thead>
+            <tbody>
+            @for(field <- fields) {
+                <tr>
+                    <td>@field.id</td>
+                    <td>@field.label</td>
+                    <td>@field.typesEnum</td>
+                    <td>
+                    <td>
+                    @{
+                        if(field.required == true)
+                                <input type="checkbox" checked="true" onclick="return false"/>
+                        else
+                                <input type="checkbox" onclick="return false"/>
+                    }
+                    </td>
+                    <td>
+                    @{
+                        if(field.isActive == true)
+                                <input type="checkbox" checked="true" onclick="return false"/>
+                        else
+                                <input type="checkbox" onclick="return false"/>
+                    }
+                    </td>
+                    <td>
+                        @field.properties
+                    </td>
+                    <td>
+
+                        <a href="@routes.Actions.deleteField(field.id)" onclick="return confirm('Delete field?')"><i>delete</i></a>
+                    </td>
+
+                    <td>
+                        <a href="@routes.Actions.editField(field.id)"><i>edit</i></a>
+                    </td>
+
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <a href="@routes.Actions.newField()">Create new</a>
+    }
