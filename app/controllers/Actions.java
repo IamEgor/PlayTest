@@ -44,7 +44,9 @@ public class Actions extends Controller {
 
         DynamicForm requestData = Form.form().bindFromRequest();
         Logger.info(requestData.name());
-
+        String propsList = requestData.data().get("propsList");
+        String[] strings = request().body().asFormUrlEncoded().get("propsList[]");
+        // inside strings you will have the item!
 
         Form<DB_Row> rowForm = Form.form(DB_Row.class).bindFromRequest();
 
